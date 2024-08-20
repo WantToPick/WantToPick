@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Pretendard', sans-serif;
+}
+
+/* 커스텀 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 12px; /* 스크롤바 너비 */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* 스크롤바 트랙 (백그라운드) */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #aba9a9; /* 스크롤바 색상 */
+  border-radius: 10px; /* 스크롤바 둥글게 */
+  border: 3px solid #f1f1f1; /* 스크롤바 주위의 간격 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7d7d7d; /* 스크롤바 위에 마우스를 올렸을 때 */
+}
+
+  
