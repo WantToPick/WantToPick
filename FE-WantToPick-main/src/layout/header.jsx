@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { FiUser, FiBell } from 'react-icons/fi'; // Feather 아이콘
@@ -14,6 +14,9 @@ export default function Header() {
   const [isTrainingRoomHover, setIsTrainingRoomHover] = useState(false);
   const [isCommunityHover, setIsCommunityHover] = useState(false);
 
+  // Scroll 상태 관리
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const handleButtonClick = () => {
     if (isLoggedIn) {
       logout();  // 로그아웃 시 팝업을 열지 않음
@@ -22,9 +25,28 @@ export default function Header() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // 스크롤이 0보다 크면 true, 아니면 false
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    // 스크롤 이벤트 등록
+    window.addEventListener('scroll', handleScroll);
+
+    // 컴포넌트 언마운트 시 이벤트 제거
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      <header className="bg-white text-black shadow-md fixed w-full h-[60px] z-50">
+      <header className={`fixed w-full h-[60px] z-50 shadow-md transition-colors duration-300 ${isScrolled ? 'bg-white' : 'bg-transparent'} text-black`}>
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <div className="flex items-center">
             <Link to={routes.home}>
@@ -100,7 +122,6 @@ export default function Header() {
         </div>
         <LoginPopup isOpen={isPopupOpen} togglePopup={togglePopup} setIsLoggedIn={login} />
       </header>
-      <div className="pt-[60px]"></div>
     </>
   );
 }

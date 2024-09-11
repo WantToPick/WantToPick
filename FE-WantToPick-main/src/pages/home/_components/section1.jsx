@@ -10,7 +10,7 @@ export default function Section1() {
     }, []);
 
     return (
-        <section className={`flex flex-col items-center justify-center bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 pt-24 pb-4 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+        <section className={`flex flex-col items-center justify-center bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 pt-40 pb-4 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
             <div className='text-center mb-10'>
                 <div className='flex items-center justify-center mb-5'>
                     <div className='flex items-center text-2xl text-gray-700'>
