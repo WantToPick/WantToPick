@@ -9,9 +9,9 @@ export function usePortfolio(initialData = []) {
   const [selectedItems, setSelectedItems] = useState([]); // 선택된 항목 관리
 
   useEffect(() => {
-    // 초기 데이터를 설정합니다.
+    // 초기 데이터를 처음 한 번만 설정하도록 수정
     setData(initialData);
-  }, [initialData]);
+  }, []); // 빈 의존성 배열로 한 번만 실행
 
   useEffect(() => {
     // 현재 페이지에 해당하는 데이터를 계산합니다.

@@ -82,7 +82,7 @@ export default function Router() {
             },
             {
               path: routes.portfolioImage,
-              element: <ImagePortfolioPage />,
+              element: id ? <DetailPage /> : <ImagePortfolioPage />,
             },
           ],
         },
