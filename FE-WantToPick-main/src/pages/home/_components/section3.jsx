@@ -54,7 +54,7 @@ export default function Section3() {
 
     return (
         <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-10 md:px-32 bg-white">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex justify-between items-center mb-16">
                 <div className="text-left">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">My One Pick</h2>
                     <p className="text-gray-600 text-lg">여러 엔터의 모집 공고를 확인하세요!</p>
