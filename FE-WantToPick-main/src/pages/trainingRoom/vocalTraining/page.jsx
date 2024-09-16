@@ -1,7 +1,7 @@
-export default function DanceTrainingPage(){
+export default function VocalTrainingPage(){
     return(
         <div>
-            댄스트레이닝 페이지
+            보컬트레이닝 페이지
         </div>
     );
 }
