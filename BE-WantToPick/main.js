@@ -5,7 +5,7 @@ const cors = require('cors');
 const sessionConfig = require('./config/session');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
-const db = require('./lib/db');
+const connectDB = require('./lib/db'); // MongoDB 연결 함수 불러오기
 
 const app = express();
 
@@ -22,15 +22,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session(sessionConfig));
 
-// 데이터베이스 연결
-db.connect((err) => {
-    if (err) throw err;
-    console.log('MySQL 데이터베이스에 연결되었습니다.');
-});
+// MongoDB 연결 호출
+connectDB();
 
 // 라우터 설정
-app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
+// app.use('/api/auth', authRoutes);
+// app.use('/api/user', userRoutes);
 
 // 서버 시작
 app.listen(3001, () => {
