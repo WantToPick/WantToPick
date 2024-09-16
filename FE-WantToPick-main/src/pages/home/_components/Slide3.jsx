@@ -13,10 +13,10 @@ export default function Slide3() {
         >
             <div className="text-center sm:text-left w-full max-w-screen-lg">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-700 mb-4">
-                    다채로운 커뮤니티 공간
+                    다른 연습생들과 자유롭게 소통하기
                 </h2>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10">
-                    아이돌 연습생들과 자유롭게 소통하세요
+                    다채로운 커뮤니티 공간
                 </h2>
                 <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8">
                     다양한 커뮤니티 기능으로 연습생들끼리 정보를 공유하고 함께 성장하세요.

@@ -13,10 +13,10 @@ export default function Slide4() {
         >
             <div className="text-center sm:text-left w-full max-w-screen-lg">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-700 mb-4">
-                    자신의 색을 보여주세요
+                    자신만의 색을 보여주세요
                 </h2>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-10">
-                    포트폴리오를 통해 자신을 어필하세요
+                    나만의 포트폴리오
                 </h2>
                 <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8">
                     연습생들이 자유롭게 포트폴리오를 올리고 공유할 수 있습니다.
