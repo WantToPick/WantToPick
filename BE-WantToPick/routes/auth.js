@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const User = require('./userlogin'); // User 모델을 불러옵니다
+const User = require('../models/user'); // User 모델을 불러옵니다
 const router = express.Router();
 
 // 비밀번호를 처리하고 데이터베이스에 저장하는 API 엔드포인트
