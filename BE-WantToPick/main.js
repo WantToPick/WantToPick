@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const cors = require('cors');
 const sessionConfig = require('./config/session'); // 세션 설정
-const userRoutes = require('./routes/user'); // 사용자 라우터
+const userRoutes = require('./routes/userlogin'); // 사용자 라우터
 const authRoutes = require('./routes/auth'); // 인증 라우터 (필요 시 주석 해제)
 
 const app = express();
