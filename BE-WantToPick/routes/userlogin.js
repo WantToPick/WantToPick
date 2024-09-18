@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const User = require('../routes/user'); // 수정된 User 모델 import
+const User = require('../models/user'); // 수정된 User 모델 import
 
 // MongoDB 연결 URI 설정 (환경 변수를 통해 가져옴)
 const uri = 'mongodb+srv://WantToPick:WantToPick@wanttopick.3vqcd.mongodb.net/WantToPick?retryWrites=true&w=majority';
