@@ -9,6 +9,6 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true }
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema, 'userdb'); // userdb 컬렉션에 연결되도록
 
 module.exports = User;
