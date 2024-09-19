@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import logo from '../../assets/images/home/logo.png';
-import { routes } from '../../constants/routes'
+import { routes } from '../../constants/routes';
+import { login } from './api';  // API 함수 import
 
 export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
+  const [id, setId] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);  // 로그인 실패 메시지를 저장하는 state
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -12,11 +17,17 @@ export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
     navigate(location.pathname.split('/login')[0]); // 현재 경로에서 '/login'을 제거하여 원래 경로로 돌아감
   };
 
-  const handleLogin = () => {
-    // 로그인 로직 추가 가능
-    setIsLoggedIn(true);
-    closePopup();
+  const handleLogin = async () => {
+    const result = await login(id, password);
+  
+    if (result.success) {
+      setIsLoggedIn(true);
+      closePopup();
+    } else {
+      setError(result.message);  // 로그인 실패 시 에러 메시지 설정
+    }
   };
+  
 
   if (!isOpen) return null;
 
@@ -42,18 +53,23 @@ export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
           <div className="mb-10">
               <p className="block text-[#999999] font-bold ">Welcome to WANTTOPICK!</p>
             </div>
+          {error && <p className="text-red-500 mb-4">{error}</p>} {/* 에러 메시지 표시 */}
           <form>
             <div className="mb-4">
               <input
                 type="text"
-                placeholder="Enter Your ID or E-mail" 
+                placeholder="Enter Your ID" 
+                value={id}
+                onChange={(e) => setId(e.target.value)}  // 아이디 입력 업데이트
                 className="w-full px-4 py-2 border border-black rounded-[72px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />             {/*테두리가 겹치는 문제가 있어요*/}
+              />
             </div>
             <div className="mb-4">
               <input
                 type="password"
                 placeholder="Enter Your Password" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}  // 비밀번호 입력 업데이트
                 className="w-full px-4 py-2 border border-black rounded-[72px] focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
@@ -66,12 +82,11 @@ export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
             <button
               type="button"
               className="w-full bg-[#526DF8] text-white py-2 rounded-[72px]"
-              onClick={handleLogin}  // 이 부분에서 로그인 상태를 true로 변경
+              onClick={handleLogin}  // 로그인 버튼 클릭 시 handleLogin 실행
             >
               <div className="text-[#FFFFFF] text-[20px]">LOGIN</div>
             </button>
             <div className="flex justify-center mt-10 space-x-4">
-              {/*회원가입 누르면 링크 이동하도록*/}
               <Link
                 to={routes.signUp}
                 className="text-black hover:text-[#A7A4A4]"
