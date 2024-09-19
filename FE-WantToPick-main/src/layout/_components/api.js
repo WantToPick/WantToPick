@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const API_BASE_URL = 'http://localhost:3001/api';
 
@@ -12,7 +13,7 @@ export const login = async (username, password) => {
 
     // 로그인 성공 시 JWT 토큰 반환
     if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('token', response.data.token); // 토큰 저장
       return { success: true, token: response.data.token };
     }
   } catch (error) {
@@ -25,6 +26,15 @@ export const login = async (username, password) => {
   }
 };
 
+// JWT에서 username 추출
+export const getUsernameFromToken = () => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    const decodedToken = jwtDecode(token); // 토큰 디코딩
+    return decodedToken.username; // JWT에서 username 추출
+  }
+  return null;
+};
 
 // 로그인 상태 확인 (로컬 스토리지에 JWT가 있는지 확인)
 export const isLoggedIn = () => {
