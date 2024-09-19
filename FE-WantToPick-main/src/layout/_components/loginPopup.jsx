@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import logo from '../../assets/images/home/logo.png';
 import { routes } from '../../constants/routes';
-import { login } from './api';  // API 함수 import
+import { useAuth } from '../_hooks/useAuth'; // useAuth 훅 사용
 
-export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
-  const [id, setId] = useState('');
+export default function LoginPopup({ isOpen, togglePopup }) {
+  const { login } = useAuth(); // useAuth에서 login 함수 가져오기
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);  // 로그인 실패 메시지를 저장하는 state
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -17,17 +16,15 @@ export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
     navigate(location.pathname.split('/login')[0]); // 현재 경로에서 '/login'을 제거하여 원래 경로로 돌아감
   };
 
-  const handleLogin = async () => {
-    const result = await login(id, password);
-  
-    if (result.success) {
-      setIsLoggedIn(true);
+  const handleLogin = () => {
+    // 로그인 처리
+    if (username && password) {
+      login(username, password); // 전역 상태로 로그인 처리
       closePopup();
     } else {
-      setError(result.message);  // 로그인 실패 시 에러 메시지 설정
+      alert('아이디와 비밀번호를 입력하세요.');
     }
   };
-  
 
   if (!isOpen) return null;
 
@@ -38,7 +35,7 @@ export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
           onClick={closePopup}
           className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl p-2"
         >
-          &#x2715; {/* Unicode character for X */}
+          &#x2715;
         </button>
         <div className="w-1/2 p-8 flex flex-col justify-end items-center"
             style={{ background: 'linear-gradient(to bottom right, #FFEAEA, #D7E1FF)' }}
@@ -53,36 +50,29 @@ export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
           <div className="mb-10">
               <p className="block text-[#999999] font-bold ">Welcome to WANTTOPICK!</p>
             </div>
-          {error && <p className="text-red-500 mb-4">{error}</p>} {/* 에러 메시지 표시 */}
           <form>
             <div className="mb-4">
               <input
                 type="text"
-                placeholder="Enter Your ID" 
-                value={id}
-                onChange={(e) => setId(e.target.value)}  // 아이디 입력 업데이트
+                placeholder="Enter Your ID"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="w-full px-4 py-2 border border-black rounded-[72px] focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div className="mb-4">
               <input
                 type="password"
-                placeholder="Enter Your Password" 
+                placeholder="Enter Your Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}  // 비밀번호 입력 업데이트
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-black rounded-[72px] focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-            </div>
-            <div className="mb-4">
-              <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
-                <span className="ml-2 text-[15px]">로그인 유지</span>
-              </label>
             </div>
             <button
               type="button"
               className="w-full bg-[#526DF8] text-white py-2 rounded-[72px]"
-              onClick={handleLogin}  // 로그인 버튼 클릭 시 handleLogin 실행
+              onClick={handleLogin} // 로그인 버튼 클릭 시 login 함수 실행
             >
               <div className="text-[#FFFFFF] text-[20px]">LOGIN</div>
             </button>
