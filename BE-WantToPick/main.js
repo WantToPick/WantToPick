@@ -7,6 +7,8 @@ const cors = require('cors');
 const sessionConfig = require('./config/session'); // 세션 설정
 const sessionRoutes = require('./routes/session'); // 세션에 데이터 저장하는 라우터
 const signUpRoutes = require('./routes/signUp'); // /signin 라우터
+const loginRoutes = require('./routes/login'); // 새로운 로그인 경로
+
 
 const app = express();
 
@@ -32,6 +34,8 @@ connectDB();
 // 라우터 설정
 app.use('/api/session', sessionRoutes); // 세션에 데이터 저장 라우터
 app.use('/api', signUpRoutes); // /sign_up 라우터
+app.use('/api', loginRoutes);  // /api/login 라우트를 추가
+
 
 // 서버 시작
 app.listen(PORT, () => {
