@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // User 모델 가져오기
+const User = require('../models/user'); // User 모델 가져오기
 
 // 세션에 저장된 모든 데이터를 한 번에 저장
 router.post('/sign_up', async (req, res) => {
