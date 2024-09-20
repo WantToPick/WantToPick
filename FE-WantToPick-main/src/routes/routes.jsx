@@ -14,7 +14,8 @@ import VocalPortfolioPage from '../pages/portfolio/_components/vocalPortfolio';
 import DancePortfolioPage from '../pages/portfolio/_components/dancePortfolio';
 import RapPortfolioPage from '../pages/portfolio/_components/rapPortfolio';
 import ImagePortfolioPage from '../pages/portfolio/_components/imagePortfolio';
-import DetailPage from '../pages/portfolio/_components/detailPage'; // 상세 페이지 추가
+import DetailPage from '../pages/portfolio/_components/detailPage';
+import RecruitDetail from '../pages/recruit/_components/recruitDetail';
 
 export default function Router() {
   const location = useLocation();
@@ -75,6 +76,10 @@ export default function Router() {
               element: id ? <DetailPage /> : <ImagePortfolioPage />,
             },
           ],
+        },
+        {
+          path: '/detail/:id',
+          element: <RecruitDetail />,
         },
       ],
     },
