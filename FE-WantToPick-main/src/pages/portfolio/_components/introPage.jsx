@@ -37,10 +37,22 @@ export default function IntroPage() {
   // 입력 값 변경 핸들러 (편집 모드에서만 사용)
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditSelfIntroductionData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+
+    if (name.startsWith('favorite_songs')) {
+      const [_, songKey] = name.split('_');  // name을 통해 'song1' 또는 'song2' 구분
+      setEditSelfIntroductionData(prevData => ({
+        ...prevData,
+        favorite_songs: {
+          ...prevData.favorite_songs,
+          [songKey]: value
+        }
+      }));
+    } else {
+      setEditSelfIntroductionData(prevData => ({
+        ...prevData,
+        [name]: value
+      }));
+    }
   };
 
   if (!selfIntroductionData) {
@@ -94,8 +106,40 @@ export default function IntroPage() {
         <h2 className="w-32 text-xl font-bold">추가 정보</h2>
         <div className="border rounded-lg p-4 flex-grow">
           <div className="space-y-4">
+            {/* 좋아하는 노래 */}
+            <div className="flex">
+              <span className="text-gray-400 w-32">좋아하는 노래</span>
+              <div className="flex-grow">
+                {isEditing ? (
+                  <>
+                    <input
+                      type="text"
+                      name="favorite_songs_song1"
+                      value={editSelfIntroductionData.favorite_songs?.song1 || ''}
+                      onChange={handleInputChange}
+                      className="border rounded-lg w-full mt-1 p-1"
+                      placeholder="노래 1"
+                    />
+                    <input
+                      type="text"
+                      name="favorite_songs_song2"
+                      value={editSelfIntroductionData.favorite_songs?.song2 || ''}
+                      onChange={handleInputChange}
+                      className="border rounded-lg w-full mt-1 p-1"
+                      placeholder="노래 2"
+                    />
+                  </>
+                ) : (
+                  <p className="text-black">
+                    {editSelfIntroductionData.favorite_songs?.song1}<br />
+                    {editSelfIntroductionData.favorite_songs?.song2}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* 나머지 추가 정보 */}
             {[
-              { label: '좋아하는 노래', value: editSelfIntroductionData.favorite_songs, name: 'favorite_songs' },
               { label: '롤모델', value: editSelfIntroductionData.role_model, name: 'role_model' },
               { label: '특기', value: editSelfIntroductionData.specialty, name: 'specialty' },
               { label: '매력 포인트', value: editSelfIntroductionData.charm_points, name: 'charm_points' },
