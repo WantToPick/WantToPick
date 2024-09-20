@@ -1,6 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const User = require('../models/user');
 const router = express.Router();
 
 const SECRET_KEY = 'your_jwt_secret'; // 환경 변수로 관리하는 것이 좋습니다.
