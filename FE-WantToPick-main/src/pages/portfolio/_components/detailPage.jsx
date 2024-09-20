@@ -10,12 +10,18 @@ export default function DetailPage() {
 
   // URL 경로에서 포트폴리오 타입을 추출
   const pathSegments = location.pathname.split('/');
-  const type = pathSegments[pathSegments.length - 1]; // "vocal", "dance", "rap" 등을 추출
+  const type = pathSegments[pathSegments.length - 1]; // "vocal", "dance", "rap", "image" 등을 추출
+
+  // 디버깅용 로그 추가
+  console.log("Location pathname:", location.pathname);
+  console.log("Path segments:", pathSegments);
+  console.log("Extracted type:", type);
 
   useEffect(() => {
-    // 모의 데이터를 가져오는 함수
     const fetchData = async () => {
       setLoading(true);
+
+      // 모의 데이터
       const mockData = {
         vocal: [
           { 
@@ -78,15 +84,36 @@ export default function DetailPage() {
             views: 160,
             date: '2024.08.05',
           },
+        ],
+        image: [
+          { 
+            id: 1, 
+            title: '이미지 1', 
+            description: '이미지 설명',
+            imageUrl: 'path/to/image1.png',
+            views: 120,
+            date: '2024.08.05',
+          },
+          { 
+            id: 2, 
+            title: '사진 포트폴리오 2', 
+            description: '이 사진은 제 마음을 사로잡았습니다.',
+            imageUrl: 'path/to/image2.png',
+            views: 140,
+            date: '2024.08.05',
+          },
         ]
       };
 
-      console.log("Type:", type);
-      console.log("ID:", id);
+      // mockData 확인 로그 추가
+      console.log("mockData for type:", type, mockData[type]);
 
       // 해당 타입과 ID에 맞는 데이터를 찾습니다.
       const data = mockData[type]?.find((item) => item.id === parseInt(id));
-      console.log("Found item:", data);
+      
+      // 가져온 데이터 확인
+      console.log("Fetched data:", data);
+
       setItem(data);
       setLoading(false);
     };
@@ -105,25 +132,31 @@ export default function DetailPage() {
   return (
     <div className="p-8">
       <div className="mb-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">비디오 포트폴리오 | {type === 'vocal' ? '보컬' : type === 'dance' ? '댄스' : '랩'}</h1>
+        <h1 className="text-2xl font-bold">
+          포트폴리오 | {type === 'vocal' ? '보컬' : type === 'dance' ? '댄스' : type === 'rap' ? '랩' : '이미지'}
+        </h1>
         <button className="text-gray-600 underline">편집</button>
       </div>
       
       <div className="border rounded-lg p-10 mb-4">
         <div className='text-xl font-bold flex items-center mb-4'>
-            <Link to={`/portfolio/${type}`} className="mr-5">{'<'}</Link>
-            <h2>{item.title}</h2>
+          <Link to={`/portfolio/${type}`} className="mr-5">{'<'}</Link>
+          <h2>{item.title}</h2>
         </div>
         <div className='px-20 py-8 border-b border-gray-400 mb-8'>
+          {type === 'image' ? (
+            <img src={item.imageUrl} alt={item.title} className="w-full h-auto mb-4 rounded-lg" />
+          ) : (
             <video controls className="w-full h-auto mb-4 rounded-lg">
-            <source src={item.videoUrl} type="video/mp4" />
-            해당 브라우저는 비디오 태그를 지원하지 않습니다.
+              <source src={item.videoUrl} type="video/mp4" />
+              해당 브라우저는 비디오 태그를 지원하지 않습니다.
             </video>
+          )}
         </div>
         <p className='mb-4'>{item.description}</p>
         <div className="text-gray-500 flex justify-end">
-            <span className="mr-6">조회수 {item.views}</span>
-            <span>게시일 {item.date}</span>
+          <span className="mr-6">조회수 {item.views}</span>
+          <span>게시일 {item.date}</span>
         </div>
       </div>
     </div>
