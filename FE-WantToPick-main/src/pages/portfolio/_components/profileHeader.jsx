@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ProfileHeader() {
   return (
-    <div className="bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 px-10 py-10 text-black flex justify-between items-start">
+    <div className="bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 px-10 py-4 text-black flex justify-between items-start">
       <div className="flex items-center w-9/12">
         <div className="w-40 h-52 bg-gray-300 rounded-lg" />
         <div className="ml-8">
