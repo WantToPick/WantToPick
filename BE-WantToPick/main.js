@@ -1,5 +1,5 @@
+// 기존 코드
 const connectDB = require('./lib/db.js'); // db.js에서 MongoDB 연결 함수 가져오기
-
 require('dotenv').config(); // 환경 변수 로드
 const express = require('express');
 const session = require('express-session');
@@ -9,7 +9,7 @@ const sessionRoutes = require('./routes/session'); // 세션에 데이터 저장
 const signUpRoutes = require('./routes/signUp'); // /signin 라우터
 const loginRoutes = require('./routes/login'); // 새로운 로그인 경로
 const selfIntroductionRoutes = require('./routes/selfIntroduction');
-
+const videoRoutes = require('./routes/video'); // 비디오 업로드/다운로드 라우터 추가
 
 const app = express();
 
@@ -38,6 +38,8 @@ app.use('/api', signUpRoutes); // /sign_up 라우터
 app.use('/api', loginRoutes);  // /api/login 라우트를 추가
 app.use('/api', selfIntroductionRoutes);
 
+// 비디오 업로드 및 다운로드 라우터
+app.use('/api/video', videoRoutes); // /api/video 경로에 비디오 관련 라우터 추가
 
 // 서버 시작
 app.listen(PORT, () => {
