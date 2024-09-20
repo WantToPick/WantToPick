@@ -37,46 +37,24 @@ export default function Header() {
               >
                 HOME
               </Link>
-              <div
-                className="relative group text-black px-6 py-1 rounded-t-2xl hover:bg-black hover:text-white transition-all duration-200 ease-in-out"
-                onMouseEnter={() => setIsTrainingRoomHover(true)}
-                onMouseLeave={() => setIsTrainingRoomHover(false)}
+              <Link
+                to={routes.trainingRoom}
+                className="relative group text-black px-6 py-1 rounded-full hover:bg-black hover:text-white transition-all duration-200 ease-in-out"
               >
                 트레이닝룸
-                {isTrainingRoomHover && (
-                  <div className="absolute top-full left-0 bg-black text-white rounded-b-2xl border-t border-t-1 border-white shadow-lg p-4 w-[117px] text-center">
-                    <Link to={routes.vocalTraining} className="text-sm block hover:text-gray-400 py-1">
-                      보컬 트레이닝
-                    </Link>
-                    <Link to={routes.danceTraining} className="text-sm block hover:text-gray-400 py-1">
-                      댄스 트레이닝
-                    </Link>
-                  </div>
-                )}
-              </div>
+              </Link>
               <Link
                 to={routes.recruit}
                 className="relative group text-black px-6 py-1 rounded-full hover:bg-black hover:text-white transition-all duration-200 ease-in-out"
               >
                 모집공고
               </Link>
-              <div
-                className="relative group text-black px-6 py-1 rounded-t-2xl hover:bg-black hover:text-white transition-all duration-200 ease-in-out"
-                onMouseEnter={() => setIsCommunityHover(true)}
-                onMouseLeave={() => setIsCommunityHover(false)}
+              <Link
+                to={routes.community}
+                className="relative group text-black px-6 py-1 rounded-full hover:bg-black hover:text-white transition-all duration-200 ease-in-out"
               >
                 커뮤니티
-                {isCommunityHover && (
-                  <div className="absolute top-full left-0 bg-black text-white rounded-b-2xl border-t border-t-1 border-white shadow-lg p-4 w-[103.5px] text-center">
-                    <Link to={routes.freeBoard} className="text-sm block hover:text-gray-400 py-1">
-                      자유게시판
-                    </Link>
-                    <Link to={routes.teamRecruit} className="text-sm block hover:text-gray-400 py-1">
-                      팀 모집
-                    </Link>
-                  </div>
-                )}
-              </div>
+              </Link>
             </nav>
           </div>
           <div className="flex items-center space-x-4 relative">
@@ -85,10 +63,10 @@ export default function Header() {
                 <FiBell className="text-xl cursor-pointer" />
                 <FiUser className="text-xl cursor-pointer" />
                 <span className="ml-2">{username}님</span> {/* 로그인한 사용자의 이름 표시 */}
-                <button className="bg-[#526DF8] text-white px-5 py-1 rounded-md hover:bg-opacity-50" onClick={logout}>
+                <button className="bg-white text-[#526DF8] py-1 rounded-md hover:bg-opacity-50" onClick={logout}>
                   로그아웃
                 </button>
-                <button className="bg-[#526DF8] text-white px-5 py-1 rounded-md hover:bg-opacity-50">
+                <button className="bg-[#526DF8] font-extrabold text-white px-5 py-1 rounded-md hover:text-opacity-50">
                   <Link to={routes.portfolioIntro}>
                     포트폴리오 +
                   </Link>
