@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const selfIntroductionSchema = new mongoose.Schema({
-  username: { type: String, required: true }, // username을 외래키로 사용
+  username: { type: String, required: true, unique: true }, // username을 외래키로 사용
   training_period: { type: String, required: true },
   experience: { type: String, required: true },
   nationality: { type: String, required: true },

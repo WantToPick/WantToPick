@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const profileSchema = new mongoose.Schema({
-  _id: { type: String, required: true }, // username을 기본키로 사용
-  username: { type: String, required: true },
+  username: { type: String, required: true, unique: true }, // username을 기본키로 사용
   name: { type: String, required: true },
   birthdate: { type: String, required: true },
   email: { type: String, required: true },

@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
     }
 
     // JWT 토큰 생성
-    const token = jwt.sign({ userId: user._id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign({ username: user.username }, SECRET_KEY, { expiresIn: '1h' });
 
     // JWT 토큰을 클라이언트로 반환
     res.json({ message: '로그인 성공', token });
