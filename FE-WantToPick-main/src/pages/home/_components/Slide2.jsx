@@ -21,7 +21,7 @@ export default function Slide2() {
                 <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8">
                     키, 음역대, 템포, 포먼트를 분석하여 사용자 맞춤 노래를 추천해줍니다.
                 </p>
-                <Link to={routes.vocalTraining} className="px-6 py-3 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition inline-block">
+                <Link to={routes.trainingRoom} className="px-6 py-3 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition inline-block">
                     트레이닝룸 바로가기 ➔
                 </Link>
             </div>

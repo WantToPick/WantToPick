@@ -21,7 +21,7 @@ export default function Slide4() {
                 <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8">
                     연습생들이 자유롭게 포트폴리오를 올리고 공유할 수 있습니다.
                 </p>
-                <Link to={routes.portfolio} className="px-6 py-3 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition inline-block">
+                <Link to={routes.portfolioIntro} className="px-6 py-3 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition inline-block">
                     포트폴리오 바로가기 ➔
                 </Link>
             </div>

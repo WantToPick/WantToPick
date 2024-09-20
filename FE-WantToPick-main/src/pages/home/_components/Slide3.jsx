@@ -21,7 +21,7 @@ export default function Slide3() {
                 <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8">
                     다양한 커뮤니티 기능으로 연습생들끼리 정보를 공유하고 함께 성장하세요.
                 </p>
-                <Link to={routes.freeBoard} className="px-6 py-3 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition inline-block">
+                <Link to={routes.community} className="px-6 py-3 bg-white text-gray-700 font-medium rounded-full shadow-md hover:shadow-lg transition inline-block">
                     커뮤니티 바로가기 ➔
                 </Link>
             </div>
