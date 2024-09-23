@@ -1,5 +1,5 @@
 // 기존 코드
-const connectDB = require('./lib/db.js'); // db.js에서 MongoDB 연결 함수 가져오기
+const connectDB = require('./lib/db'); // db.js에서 MongoDB 연결 함수 가져오기
 require('dotenv').config(); // 환경 변수 로드
 const express = require('express');
 const session = require('express-session');
@@ -18,12 +18,13 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGO_URI;
 
-// CORS 설정
 const corsOptions = {
     origin: 'http://localhost:3000', // 프론트엔드의 URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 };
+
+app.use(cors(corsOptions)); // CORS 미들웨어 추가
 
 // 미들웨어 설정
 app.use(cors(corsOptions)); // CORS 설정 적용
@@ -44,7 +45,7 @@ app.use('/api/video', videoRoutes); // /api/video 경로에 비디오 관련 라
 
 
 // MP3 업로드 및 다운로드 라우터
-app.use('/api/trainingRoom', musicRoutes); // /api/music 경로에 MP3 관련 라우터 추가
+app.use('/api/trainingRoom', musicRoutes); // /api/trainingRoom 경로에 MP3 관련 라우터 추가
 
 // 서버 시작
 app.listen(PORT, () => {
