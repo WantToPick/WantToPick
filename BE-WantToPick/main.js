@@ -10,6 +10,7 @@ const signUpRoutes = require('./routes/signUp'); // /signin 라우터
 const loginRoutes = require('./routes/login'); // 새로운 로그인 경로
 const selfIntroductionRoutes = require('./routes/selfIntroduction');
 const videoRoutes = require('./routes/video'); // 비디오 업로드/다운로드 라우터 추가
+const musicRoutes = require('./routes/trainingRoom'); //노래 업로드/다운로드 라우터 추가
 
 const app = express();
 
@@ -40,6 +41,10 @@ app.use('/api', selfIntroductionRoutes);
 
 // 비디오 업로드 및 다운로드 라우터
 app.use('/api/video', videoRoutes); // /api/video 경로에 비디오 관련 라우터 추가
+
+
+// MP3 업로드 및 다운로드 라우터
+app.use('/api/trainingRoom', musicRoutes); // /api/music 경로에 MP3 관련 라우터 추가
 
 // 서버 시작
 app.listen(PORT, () => {
