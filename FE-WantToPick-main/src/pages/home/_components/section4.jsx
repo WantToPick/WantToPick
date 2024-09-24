@@ -1,25 +1,22 @@
 import React from 'react';
-import sercurity from '../../../assets/images/home/security.png';
+import section4Image from '../../../assets/images/home/section4.png'
 
 export default function Section4() {
     return (
-        <section className="py-32 px-44 bg-gradient-to-b from-[#FFEAEB] to-white mt-10">
-            <div className="container mx-auto flex items-center">
-                <div className="w-1/2 relative">
-                    <img src={sercurity} alt="Sercurity Image" className='w-[520px]'/>
-                </div>
-                <div className="w-1/2 pl-16">
-                    <h2 className="text-4xl font-bold mb-4">Picker’s 엔터테인먼트 기업 <br></br> 완전인증</h2>
-                    <p className="mb-4">
-                        원투픽만의 완전인증 시스템을 통해 엔터테인먼트 전문성과 신뢰도를 높이고 <br />
-                        Pick과 Picker가 더욱 안심하고 매칭을 진행할 수 있어요. <br />
-                        안전한 서비스를 위한 노력들도 계속 되고요.
-                    </p>
-                    <p>
-                        이 외에도 연습생과 엔터의 관계를 안전하게 보호할 수 있는<br />
-                        서비스를 지속적으로 준비하고 있어요.
-                    </p>
-                </div>
+        <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-10 md:px-32 bg-gradient-to-b from-white to-[#E1E8FF]">
+            {/* 타이틀 섹션 */}
+            <div className="text-right mb-16">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">My Portfolio</h2>
+                <p className="text-gray-600 text-lg">나를 보여주는 포트폴리오를 만들어볼까?</p>
+            </div>
+
+            {/* 이미지 섹션 */}
+            <div className="px-4 flex justify-center">
+                <img 
+                    src={section4Image} 
+                    alt="profile" 
+                    className="w-full max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl h-auto" 
+                />
             </div>
         </section>
     );

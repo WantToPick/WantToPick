@@ -1,71 +1,101 @@
 import React from 'react';
-import profileImage from '../../../assets/images/home/person.png';
-import wtpLogo from '../../../assets/images/logo.png';
+import { Link } from 'react-router-dom';
+import { routes } from '../../../constants/routes'; // routes 파일에서 경로 가져옴
 
 export default function Section3() {
+    // 전체 공고 데이터 임시로 넣어둠
+    const announcements = [
+        {
+            id: 1,
+            title: 'YG엔터테인먼트 남자 연습생 모집',
+            deadline: '2024.07.19. 마감',
+            company: 'YG엔터테인먼트',
+        },
+        {
+            id: 2,
+            title: 'SM엔터테인먼트 여자 연습생 모집',
+            deadline: '2024.07.20. 마감',
+            company: 'SM엔터테인먼트',
+        },
+        {
+            id: 3,
+            title: 'JYP엔터테인먼트 혼성 연습생 모집',
+            deadline: '2024.07.22. 마감',
+            company: 'JYP엔터테인먼트',
+        },
+        {
+            id: 4,
+            title: 'HYBE엔터테인먼트 남자 연습생 모집',
+            deadline: '2024.07.25. 마감',
+            company: 'HYBE엔터테인먼트',
+        },
+        {
+            id: 5,
+            title: 'CUBE엔터테인먼트 여자 연습생 모집',
+            deadline: '2024.07.30. 마감',
+            company: 'CUBE엔터테인먼트',
+        },
+        {
+            id: 6,
+            title: 'PLEDIS엔터테인먼트 여자 연습생 모집',
+            deadline: '2024.08.05. 마감',
+            company: 'PLEDIS엔터테인먼트',
+        },
+        {
+            id: 7,
+            title: '스타쉽엔터테인먼트 남자 연습생 모집',
+            deadline: '2024.08.10. 마감',
+            company: '스타쉽엔터테인먼트',
+        },
+    ];
+
+    // 마지막 5개의 공고만 보여주도록 필터링
+    const lastFiveAnnouncements = announcements.slice(-5); // 배열의 마지막 5개 항목 추출
+
     return (
-        <section className="py-32 px-32 bg-gradient-to-b from-white to-[#E0ECFF]">
-            <div className="text-center mb-16">
-                <h2 className="text-4xl font-bold">PICK 순서</h2>
-                <p className="text-xl text-gray-600">WANT TO PICK ? 어떻게 하지 ?</p>
+        <section className="relative py-16 sm:py-24 md:py-32 px-4 sm:px-10 md:px-32 bg-white">
+            <div className="flex justify-between items-center mb-16">
+                <div className="text-left">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">My One Pick</h2>
+                    <p className="text-gray-600 text-lg">여러 엔터의 모집 공고를 확인하세요!</p>
+                </div>
+
+                <Link to={routes.recruit} className="text-end">
+                    <div className="flex items-center justify-center w-10 h-10 border-2 border-gray-700 rounded-full hover:bg-gray-200 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                </Link>
             </div>
-            <div className="flex justify-around items-start space-x-8">
-                <div className="bg-white rounded-3xl p-8 shadow-md w-80 flex flex-col justify-between min-h-[28rem]">
-                    <div>
-                        <div className="flex justify-center mb-4">
-                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#526DF8] text-white text-lg font-bold">
-                                01
-                            </div>
-                        </div>
-                        <h3 className="text-xl font-bold text-center mb-4">나만의 포트폴리오 작성하기</h3>
-                        <div className="text-left">
-                            <p className="mb-2"><strong>이름 / 나이 :</strong> 이소희 / 18살</p>
-                            <p className="mb-2"><strong>키 / 체중 :</strong> 160cm / 40kg</p>
-                            <p className="mb-2"><strong>특기 :</strong> 보컬</p>
-                            <p className="mb-2"><strong>자기소개 :</strong></p>
-                            <div className="flex items-start justify-start mt-2">
-                                <img src={profileImage} alt="Profile Placeholder" className="w-36" />
-                            </div>
-                            <p className="text-gray-500 text-right">보컬/랩/댄스</p>
-                        </div>
+
+
+            <div className="flex flex-col md:flex-row">
+                {/* 왼쪽: 공고 진행 정보 */}
+                <div className="mb-8 md:mb-0 md:w-1/3">
+                    <div className="text-lg">
+                        <span className="text-red-500 font-bold">{lastFiveAnnouncements.length}</span>개 공고 진행중
                     </div>
                 </div>
-                <div className="bg-white rounded-3xl p-8 shadow-md w-80 flex flex-col justify-between min-h-[28rem]">
-                    <div>
-                        <div className="flex justify-center mb-4">
-                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#526DF8] text-white text-lg font-bold">
-                                02
+
+                {/* 오른쪽: 공고 리스트 */}
+                <div className="md:w-2/3">
+                    <div className="grid grid-cols-1 gap-4">
+                        {lastFiveAnnouncements.map((item, index) => (
+                            <div key={index} className="flex justify-between items-center pb-4 border-b">
+                                {/* 공고 제목 및 마감일 */}
+                                <div className="flex flex-col">
+                                    {/* Link에 공고 id를 URL 파라미터로 넘김 */}
+                                    <Link to={`/recruit?id=${item.id}`} className="text-lg font-semibold text-gray-900 hover:text-blue-600">
+                                        {item.title}
+                                    </Link>
+                                    <span className="text-gray-500 text-sm">{item.deadline}</span>
+                                </div>
+
+                                {/* 회사 이름 */}
+                                <div className="text-gray-500 text-sm">{item.company}</div>
                             </div>
-                        </div>
-                        <h3 className="text-xl font-bold text-center mb-4">전문가에게 피드백 받기</h3>
-                        <div className="text-left space-y-2">
-                            <div className="relative bg-[#E0ECFF] rounded-lg p-4 mb-2">
-                                <p>조금 더 낮은 음악대의 노래가 좋을 거 같아요.</p>
-                                <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-full w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[#E0ECFF]"></div>
-                            </div>
-                            <div className="relative bg-[#FFEAEB] rounded-lg p-4 mb-2">
-                                <p>춤 연습을 조금 더 하면 실력을 늘 것 같네요!</p>
-                                <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-full w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-[#FFEAEB]"></div>
-                            </div>
-                            <div className="relative bg-gray-100 rounded-lg p-4">
-                                <p>충분한 끼가 있고 소질이 있네요 :)</p>
-                                <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-full w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-gray-100"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="bg-white rounded-3xl p-8 shadow-md w-80 flex flex-col justify-between min-h-[28rem]">
-                    <div>
-                        <div className="flex justify-center mb-4">
-                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#526DF8] text-white text-lg font-bold">
-                                03
-                            </div>
-                        </div>
-                        <h3 className="text-xl font-bold text-center mb-4">소속사에서 나를 픽 !</h3>
-                        <div className="flex items-center justify-center h-32 mb-2">
-                            <img src={wtpLogo} alt="WTP Logo" className="w-28" />
-                        </div>
-                        <p className="text-center text-gray-500">우리 회사랑 너무 잘 맞을 거 같아요 !</p>
+                        ))}
                     </div>
                 </div>
             </div>
