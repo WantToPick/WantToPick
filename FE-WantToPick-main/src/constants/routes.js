@@ -13,4 +13,7 @@ export const routes = {
 	portfolioDance: '/portfolio/dance',
 	portfolioRap: '/portfolio/rap',
 	portfolioImage: '/portfolio/image',
+	mypage: '/mypage',
+	modifyInfo: '/modifyinfo',
+	selectedInfo: '/selectedinfo',
 };

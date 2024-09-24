@@ -18,6 +18,9 @@ import RapPortfolioPage from '../pages/portfolio/_components/rapPortfolio';
 import ImagePortfolioPage from '../pages/portfolio/_components/imagePortfolio';
 import DetailPage from '../pages/portfolio/_components/detailPage';
 import RecruitDetail from '../pages/recruit/_components/recruitDetail';
+import MyPage from '../pages/mypage/myPage';
+import ModifyInfo from '../pages/mypage/_components/modifyInfo';
+import SelectedInfo from '../pages/mypage/_components/selectedInfo';
 
 export default function Router() {
   const location = useLocation();
@@ -60,6 +63,18 @@ export default function Router() {
         {
           path: routes.teamRecruit,
           element: <TeamRecruitPage />,
+        },
+        {
+          path: routes.mypage,
+          element: <MyPage />, 
+        },
+        {
+          path: routes.modifyInfo,
+          element: <ModifyInfo />,
+        },
+        {
+          path: routes.selectedInfo,
+          element: <SelectedInfo />,
         },
         {
           path: routes.portfolio,

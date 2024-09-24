@@ -83,7 +83,9 @@ export default function Header() {
             {isLoggedIn && (
               <>
                 <FiBell className="text-xl cursor-pointer" />
-                <FiUser className="text-xl cursor-pointer" />
+                <Link to={routes.mypage}>
+                  <FiUser className="text-xl cursor-pointer" />
+                </Link>
                 <button className="bg-[#526DF8] text-white px-5 py-1 rounded-md hover:bg-opacity-50">
                   <Link to={routes.portfolioIntro}>
                     포트폴리오 +
