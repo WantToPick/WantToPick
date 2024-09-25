@@ -61,11 +61,15 @@ export default function Header() {
             {isLoggedIn ? (
               <>
                 <FiBell className="text-xl cursor-pointer" />
-                <FiUser className="text-xl cursor-pointer" />
-                <span className="ml-2">{username}님</span> {/* 로그인한 사용자의 이름 표시 */}
-                <button className="bg-white text-[#526DF8] py-1 rounded-md hover:bg-opacity-50" onClick={logout}>
-                  로그아웃
-                </button>
+                <Link to={routes.mypage}>
+                  <FiUser className="text-xl cursor-pointer" />
+                </Link>
+                <div className="flex items-center">
+                  <span className="ml-2">{username}님</span> {/* 로그인한 사용자의 이름 표시 */}
+                  <button className="bg-white text-[#526DF8] py-1 rounded-md hover:bg-opacity-50" onClick={logout}>
+                    로그아웃
+                  </button>
+                </div>
                 <button className="bg-[#526DF8] font-extrabold text-white px-5 py-1 rounded-md hover:text-opacity-50">
                   <Link to={routes.portfolioIntro}>
                     포트폴리오 +
