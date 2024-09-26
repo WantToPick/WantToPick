@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
 import { getSelfIntroduction, updateSelfIntroduction } from '../api';  // API 함수 가져오기
 
 export default function IntroPage() {
+  const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
+
   const [isEditing, setIsEditing] = useState(false);
   const [selfIntroductionData, setSelfIntroductionData] = useState(null); // DB에서 가져온 자기소개 데이터
   const [editSelfIntroductionData, setEditSelfIntroductionData] = useState(null); // 사용자가 수정한 임시 데이터

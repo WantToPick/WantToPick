@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { usePortfolio } from '../_hooks/usePortfolio';
 
 export default function VocalPortfolioPage() {
+  const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
+
   const initialData = [
     { id: 1, title: '아이유 | Love wins all', description: '보컬 영상', thumbnail: 'path/to/thumbnail1.jpg' },
     { id: 2, title: '백예린 | 우주를 줄게', description: '보컬 영상', thumbnail: 'path/to/thumbnail2.jpg' },

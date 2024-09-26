@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default function ProfileHeader() {
+export default function ProfileHeader({ username }) {
   return (
     <div className="bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 px-10 py-4 text-black flex justify-between items-start">
       <div className="flex items-center w-9/12">
         <div className="w-40 h-52 bg-gray-300 rounded-lg" />
         <div className="ml-8">
           <div className="flex mb-2">
-            <p className="text-lg font-bold w-24">이름</p>
+            <p className="text-lg font-bold w-24">이름 {username}</p>
             <p className="text-lg font-normal">미입력</p>
           </div>
           <div className="flex mb-2">

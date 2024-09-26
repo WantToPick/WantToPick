@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useOutletContext } from 'react-router-dom';
 
 export default function DetailPage() {
+  const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
+
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const id = params.get('id');
