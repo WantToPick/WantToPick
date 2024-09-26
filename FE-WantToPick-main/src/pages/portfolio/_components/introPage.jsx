@@ -11,21 +11,23 @@ export default function IntroPage() {
 
   // self_introductiondb에서 데이터 가져오기
   useEffect(() => {
-    getSelfIntroduction()
-      .then(data => {
-        setSelfIntroductionData(data);
-        setEditSelfIntroductionData(data); // 처음에는 selfIntroductionData와 동일하게 초기화
-      })
-      .catch(error => {
-        console.error('데이터 가져오기 에러:', error);
-      });
-  }, []);
+    if (username) {
+      getSelfIntroduction(username)  // username을 전달하여 해당 데이터만 가져옴
+        .then(data => {
+          setSelfIntroductionData(data);
+          setEditSelfIntroductionData(data); // 처음에는 selfIntroductionData와 동일하게 초기화
+        })
+        .catch(error => {
+          console.error('데이터 가져오기 에러:', error);
+        });
+    }
+  }, [username]);
 
   // 편집 상태 변경
   const handleEditClick = () => {
     if (isEditing && editSelfIntroductionData) {
       // 완료 버튼 클릭 시 수정된 데이터 저장
-      updateSelfIntroduction(editSelfIntroductionData)
+      updateSelfIntroduction(editSelfIntroductionData, username)
         .then(data => {
           console.log('데이터 저장 성공:', data);
           setSelfIntroductionData(editSelfIntroductionData); // 서버에 저장한 내용을 화면에 반영
