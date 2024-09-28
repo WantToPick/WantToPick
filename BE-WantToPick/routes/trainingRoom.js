@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -32,7 +31,8 @@ const upload = multer({ storage });
 // ==================================================
 // MP3 파일 업로드 API
 // ==================================================
-router.post('/upload/music', upload.single('file'), (req, res) => {
+router.post('/upload', upload.single('file'), (req, res) => {
+    console.log('File uploaded:', req.file); // 파일 업로드 로그 추가
     res.status(201).json({ file: req.file });
 });
 
