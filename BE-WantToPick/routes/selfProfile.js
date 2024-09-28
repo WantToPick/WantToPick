@@ -17,7 +17,7 @@ router.post('/profile', async (req, res) => {
 
         // 프로필 정보 생성
         const newProfile = new Profile({
-            user_id: user._id, // userdb에서 가져온 _id
+            username: user.username, // _id는 무시하고 username를 기본키로 사용하기로 해서 여기 수정할게요
             name: user.name, // userdb에서 가져온 정보
             birthdate: user.birthdate,
             email: user.email,

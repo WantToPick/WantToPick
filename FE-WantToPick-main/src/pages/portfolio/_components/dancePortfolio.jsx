@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext  } from 'react-router-dom';
 import { usePortfolio } from '../_hooks/usePortfolio';
 
 export default function DancePortfolioPage() {
+  const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
+
   const initialData = [
     { id: 1, title: '댄스 영상 1', description: '댄스 영상 설명', thumbnail: 'path/to/thumbnail1.jpg' },
     { id: 2, title: '댄스 영상 2', description: '댄스 영상 설명', thumbnail: 'path/to/thumbnail2.jpg' },

@@ -73,3 +73,45 @@ export const savePassword = async (password) => {
     throw error;
   }
 };
+
+// 모든 정보를 저장하는 함수 (/signin으로 전송)
+export const saveAllInfo = async () => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/sign_up`, {}, { withCredentials: true });  // withCredentials 추가로 세션 공유
+    console.log('모든 정보 저장 응답:', response.data); // 응답 데이터 확인
+    return response.data;
+  } catch (error) {
+    console.error('모든 정보 저장 오류:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
+
+
+// 포트폴리오의 프로필/자기소개서 튜플 추가하는 함수 (/self-introduction으로 전송)
+export const addPortfolioInfo = async (username) => {
+  const portfolioData = {
+    username: username,
+    training_period: ' ',
+    experience: ' ',
+    nationality: ' ',
+    motivation: ' ',
+    mbti: ' ',
+    favorite_songs: {
+      song1: ' ',
+      song2: ' '
+    },
+    role_model: ' ',
+    specialty: ' ',
+    charm_points: ' ',
+    my_dream: ' '
+  };
+
+  try {
+    const response = await axios.post(`${API_BASE_URL}/self-introduction`, portfolioData, { withCredentials: true });
+    console.log('포트폴리오 정보 저장 성공:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('포트폴리오 정보 저장 오류:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};

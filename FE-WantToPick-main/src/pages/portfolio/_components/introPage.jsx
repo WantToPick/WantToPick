@@ -1,12 +1,78 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { getSelfIntroduction, updateSelfIntroduction } from '../api';  // API 함수 가져오기
+>>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713
 
 export default function IntroPage() {
+  const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
+
   const [isEditing, setIsEditing] = useState(false);
 
+<<<<<<< HEAD
   const handleEditClick = () => {
     setIsEditing(!isEditing);
   };
 
+=======
+  // self_introductiondb에서 데이터 가져오기
+  useEffect(() => {
+    if (username) {
+      getSelfIntroduction(username)  // username을 전달하여 해당 데이터만 가져옴
+        .then(data => {
+          setSelfIntroductionData(data);
+          setEditSelfIntroductionData(data); // 처음에는 selfIntroductionData와 동일하게 초기화
+        })
+        .catch(error => {
+          console.error('데이터 가져오기 에러:', error);
+        });
+    }
+  }, [username]);
+
+  // 편집 상태 변경
+  const handleEditClick = () => {
+    if (isEditing && editSelfIntroductionData) {
+      // 완료 버튼 클릭 시 수정된 데이터 저장
+      updateSelfIntroduction(editSelfIntroductionData, username)
+        .then(data => {
+          console.log('데이터 저장 성공:', data);
+          setSelfIntroductionData(editSelfIntroductionData); // 서버에 저장한 내용을 화면에 반영
+        })
+        .catch(error => {
+          console.error('데이터 저장 실패:', error);
+        });
+    }
+    setIsEditing(!isEditing);
+  };
+
+  // 입력 값 변경 핸들러 (편집 모드에서만 사용)
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+  
+    if (name.startsWith('favorite_songs')) {
+      const [_, songKey] = name.split('_');  // name을 통해 'song1' 또는 'song2' 구분
+      setEditSelfIntroductionData(prevData => ({
+        ...prevData,
+        favorite_songs: {
+          ...prevData.favorite_songs,  // 기존 favorite_songs 값 복사
+          [songKey]: value  // 새로운 값 할당
+        }
+      }));
+    } else {
+      setEditSelfIntroductionData(prevData => ({
+        ...prevData,
+        [name]: value
+      }));
+    }
+  };
+
+  if (!selfIntroductionData) {
+    return <div>Loading...</div>; // 데이터를 가져오기 전 로딩 상태 표시
+  }
+
+>>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-4">
