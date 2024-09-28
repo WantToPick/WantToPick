@@ -2,12 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cors = require('cors');
-<<<<<<< HEAD
-const sessionConfig = require('./config/session');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const db = require('./lib/db');
-=======
 const multer = require('multer'); // multer 추가
 const { exec } = require('child_process'); // child_process 추가
 const sessionConfig = require('./config/session'); // 세션 설정
@@ -17,7 +14,6 @@ const loginRoutes = require('./routes/login'); // 새로운 로그인 경로
 const selfIntroductionRoutes = require('./routes/selfIntroduction');
 const videoRoutes = require('./routes/video'); // 비디오 업로드/다운로드 라우터 추가
 const musicRoutes = require('./routes/trainingRoom'); //노래 업로드/다운로드 라우터 추가
->>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713
 
 const app = express();
 
@@ -61,10 +57,8 @@ app.post('/api/trainingRoom/upload', upload.single('audio'), (req, res) => {
 });
 
 // 라우터 설정
-<<<<<<< HEAD
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
-=======
 app.use('/api/session', sessionRoutes); // 세션에 데이터 저장 라우터
 app.use('/api', signUpRoutes); // /sign_up 라우터
 app.use('/api', loginRoutes);  // /api/login 라우트를 추가
@@ -75,7 +69,6 @@ app.use('/api/video', videoRoutes); // /api/video 경로에 비디오 관련 라
 
 // MP3 업로드 및 다운로드 라우터
 app.use('/api/trainingRoom', musicRoutes); // /api/trainingRoom 경로에 MP3 관련 라우터 추가
->>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713
 
 // 서버 시작
 app.listen(3001, () => {
