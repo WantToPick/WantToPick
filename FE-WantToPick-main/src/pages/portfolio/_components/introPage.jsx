@@ -42,14 +42,14 @@ export default function IntroPage() {
   // 입력 값 변경 핸들러 (편집 모드에서만 사용)
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
+  
     if (name.startsWith('favorite_songs')) {
       const [_, songKey] = name.split('_');  // name을 통해 'song1' 또는 'song2' 구분
       setEditSelfIntroductionData(prevData => ({
         ...prevData,
         favorite_songs: {
-          ...prevData.favorite_songs,
-          [songKey]: value
+          ...prevData.favorite_songs,  // 기존 favorite_songs 값 복사
+          [songKey]: value  // 새로운 값 할당
         }
       }));
     } else {
