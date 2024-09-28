@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-export default function ImagePortfolioPage() {
-    return (
-        <div>
-            이미지포트폴리오
-        </div>
-    );
-}
-=======
 import React from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { usePortfolio } from '../_hooks/usePortfolio';
@@ -101,4 +92,3 @@ export default function ImagePortfolioPage() {
     </div>
   );
 }
->>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713

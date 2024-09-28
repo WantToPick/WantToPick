@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import { saveUsername, savePassword } from '../api'; // API 호출 함수 가져오기
-=======
 import { saveUsername, savePassword, saveAllInfo, addPortfolioInfo } from '../api'; // API 호출 함수 가져오기
->>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713
 
 
 const Step5 = ({ prevStep }) => {
@@ -26,11 +22,8 @@ const Step5 = ({ prevStep }) => {
       try {
         await saveUsername(username);
         await savePassword(password);
-<<<<<<< HEAD
-=======
         await saveAllInfo();
         await addPortfolioInfo(username);
->>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713
         alert('회원가입 성공!');
         navigate('/login');
       } catch (error) {

@@ -1,22 +1,14 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-=======
 import React, { useState, useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { getSelfIntroduction, updateSelfIntroduction } from '../api';  // API 함수 가져오기
->>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713
 
 export default function IntroPage() {
   const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
 
   const [isEditing, setIsEditing] = useState(false);
+  const [selfIntroductionData, setSelfIntroductionData] = useState(null);  // 데이터 상태 추가
+  const [editSelfIntroductionData, setEditSelfIntroductionData] = useState(null);  // 편집 데이터 상태 추가
 
-<<<<<<< HEAD
-  const handleEditClick = () => {
-    setIsEditing(!isEditing);
-  };
-
-=======
   // self_introductiondb에서 데이터 가져오기
   useEffect(() => {
     if (username) {
@@ -72,7 +64,6 @@ export default function IntroPage() {
     return <div>Loading...</div>; // 데이터를 가져오기 전 로딩 상태 표시
   }
 
->>>>>>> 9575f2a4e745bd8d67dabd28b8e0dc46b4a49713
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-4">
