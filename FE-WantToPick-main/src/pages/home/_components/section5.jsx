@@ -18,7 +18,7 @@ const CircleArrowIcon = () => (
 
 export default function Section5() {
     return (
-        <section className="py-32 bg-white">
+        <section className="py-32 bg-white h-96">
             <div className="container mx-auto text-center">
                 <h2 className="text-3xl font-bold mb-16">이제, 회원가입하고<br />나만의 연습생 포트폴리오를 만들어보세요</h2>
                 <div className="flex justify-center text-left space-x-8">
