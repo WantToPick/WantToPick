@@ -63,7 +63,7 @@ export default function ProfileHeader({ username }) {
   }
 
   return (
-    <div className="bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 px-10 py-4 text-black flex justify-between items-start">
+    <div className="bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 px-10 py-10 text-black flex justify-between items-start">
       <div className="flex items-center w-9/12">
         {/* 이미지 박스의 크기를 고정된 크기로 설정 */}
         <div className="w-40 h-52 bg-gray-300 rounded-lg flex-shrink-0" />

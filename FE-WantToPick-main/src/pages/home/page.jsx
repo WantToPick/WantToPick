@@ -9,7 +9,9 @@ export default function HomePage() {
     return (
         <main>
             <Section1 />
-            <Section2 />
+            <div id="section2">
+                <Section2 />
+            </div>
             <Section3 />
             <Section4 />
             <Section5 />

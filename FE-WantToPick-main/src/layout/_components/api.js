@@ -1,14 +1,14 @@
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
 
 const API_BASE_URL = 'http://localhost:3001/api';
 
 // 로그인 API 함수
-export const login = async (username, password) => {
+export const login = async (username, password, keepLoggedIn) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/login`, {
       username,
-      password
+      password,
+      keepLoggedIn  // 로그인 유지 여부 전송
     });
 
     // 로그인 성공 시 JWT 토큰 반환
@@ -18,13 +18,14 @@ export const login = async (username, password) => {
     }
   } catch (error) {
     if (error.response && error.response.status === 401) {
-      return { success: false, message: '잘못된 사용자명 또는 비밀번호입니다.' };   // 이 오류인건데..
+      return { success: false, message: '잘못된 사용자명 또는 비밀번호입니다.' };
     } else {
       console.error('로그인 요청 중 오류:', error);
       return { success: false, message: '서버 오류가 발생했습니다.' };
     }
   }
 };
+
 
 // JWT에서 username 추출
 export const getUsernameFromToken = () => {
