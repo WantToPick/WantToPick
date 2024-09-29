@@ -25,4 +25,18 @@ body {
   background: #7d7d7d; /* 스크롤바 위에 마우스를 올렸을 때 */
 }
 
-  
+@keyframes textFade {
+  0% {
+    color: #c7c5c5; /* 회색 */
+  }
+  50% {
+    color: #4152c5; /* 파란색 */
+  }
+  100% {
+    color: #c7c5c5; /* 다시 회색 */
+  }
+}
+
+.fade-animation {
+  animation: textFade 2s ease-in-out infinite;
+}
