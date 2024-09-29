@@ -65,7 +65,7 @@ export default function Header() {
                   <FiUser className="text-xl cursor-pointer" />
                 </Link>
                 <div className="flex items-center">
-                  <span className="ml-2">{username}님</span> {/* 로그인한 사용자의 이름 표시 */}
+                  <span className="mx-2">{username}님</span> {/* 로그인한 사용자의 이름 표시 */}
                   <button className="bg-white text-[#526DF8] py-1 rounded-md hover:bg-opacity-50" onClick={logout}>
                     로그아웃
                   </button>
