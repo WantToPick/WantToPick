@@ -6,13 +6,15 @@ import { routes } from '../../constants/routes'
 export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
   const closePopup = () => {
     togglePopup();
     navigate(location.pathname.split('/login')[0]); // 현재 경로에서 '/login'을 제거하여 원래 경로로 돌아감
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    const result = await login(username, password, keepLoggedIn);  // 로그인 유지 여부 전달
     // 로그인 로직 추가 가능
     setIsLoggedIn(true);
     closePopup();
@@ -59,7 +61,7 @@ export default function LoginPopup({ isOpen, togglePopup, setIsLoggedIn }) {
             </div>
             <div className="mb-4">
               <label className="inline-flex items-center">
-                <input type="checkbox" className="form-checkbox" />
+                <input type="checkbox" className="form-checkbox" checked={keepLoggedIn} onChange={(e) => setKeepLoggedIn(e.target.checked)} />
                 <span className="ml-2 text-[15px]">로그인 유지</span>
               </label>
             </div>

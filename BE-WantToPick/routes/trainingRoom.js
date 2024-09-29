@@ -13,7 +13,7 @@ const conn = mongoose.createConnection(mongoURI);
 let gfs;
 conn.once('open', () => {
     gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
+    gfs.collection('trainingRoom');
 });
 
 // GridFS 스토리지 설정

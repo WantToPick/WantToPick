@@ -4,7 +4,7 @@ const session = require('express-session');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
-const db = require('./lib/db');
+const connectDB = require('./lib/db'); // MongoDB 연결 파일
 const multer = require('multer'); // multer 추가
 const { exec } = require('child_process'); // child_process 추가
 const sessionConfig = require('./config/session'); // 세션 설정
@@ -13,7 +13,7 @@ const signUpRoutes = require('./routes/signUp'); // /signin 라우터
 const loginRoutes = require('./routes/login'); // 새로운 로그인 경로
 const selfIntroductionRoutes = require('./routes/selfIntroduction');
 const videoRoutes = require('./routes/video'); // 비디오 업로드/다운로드 라우터 추가
-const musicRoutes = require('./routes/trainingRoom'); //노래 업로드/다운로드 라우터 추가
+const musicRoutes = require('./routes/trainingRoom'); // 노래 업로드/다운로드 라우터 추가
 
 const app = express();
 
@@ -30,11 +30,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session(sessionConfig));
 
-// 데이터베이스 연결
-db.connect((err) => {
-    if (err) throw err;
-    console.log('MySQL 데이터베이스에 연결되었습니다.');
-});
+// MongoDB 연결
+connectDB(); // MongoDB 연결 함수 호출
 
 // MP3 업로드를 위한 multer 설정
 const upload = multer({ dest: 'uploads/' }); // 파일 저장 위치
