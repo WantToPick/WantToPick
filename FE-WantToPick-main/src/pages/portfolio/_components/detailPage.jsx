@@ -30,7 +30,7 @@ export default function DetailPage() {
             id: 1, 
             title: '아이유 | Love wins all', 
             description: '제가 좋아하는 노래입니다! 열심히 불러보았습니다 :)',
-            videoUrl: 'path/to/video1.mp4',
+            videoUrl: 'FE-WantToPick-main/src/assets/images/portfolio/lovewinsall.mp4',
             views: 150,
             date: '2024.08.05',
           },

@@ -6,9 +6,9 @@ export default function VocalPortfolioPage() {
   const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
 
   const initialData = [
-    { id: 1, title: '아이유 | Love wins all', description: '보컬 영상', thumbnail: 'path/to/thumbnail1.jpg' },
-    { id: 2, title: '백예린 | 우주를 줄게', description: '보컬 영상', thumbnail: 'path/to/thumbnail2.jpg' },
-    { id: 3, title: '소녀시대 | 다시 만난 세계', description: '보컬 영상', thumbnail: 'path/to/thumbnail3.jpg' },
+    { id: 1, title: '아이유 | Love wins all', description: '보컬 영상', thumbnail: 'FE-WantToPick-main/src/assets/images/portfolio/lovewinsall.png' },
+    { id: 2, title: '백예린 | 우주를 줄게', description: '보컬 영상', thumbnail: 'FE-WantToPick-main/src/assets/images/portfolio/universe.png' },
+    { id: 3, title: '소녀시대 | 다시 만난 세계', description: '보컬 영상', thumbnail: 'FE-WantToPick-main/src/assets/images/portfolio/world.png' },
     // 더 많은 데이터...
   ];
 
