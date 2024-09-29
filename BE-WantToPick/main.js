@@ -9,6 +9,7 @@ const connectDB = require('./lib/db'); // MongoDB 연결 파일
 const mongoose = require('mongoose'); // mongoose를 가져옵니다.
 const mongoURI = process.env.MONGO_URI;
 const multer = require('multer'); // multer 추가
+const path = require('path'); // path 모듈 추가
 const { exec } = require('child_process'); // child_process 추가
 const sessionConfig = require('./config/session'); // 세션 설정
 const sessionRoutes = require('./routes/session'); // 세션에 데이터 저장하는 라우터
@@ -32,12 +33,15 @@ mongoose.connect(mongoURI)
 // MongoDB 연결
 connectDB(); // MongoDB 연결 함수 호출
 
+// multer 설정
+const upload = multer({ dest: 'uploads/' }); // 파일 업로드를 위한 multer 설정
+
 // /api/training 엔드포인트
 app.post('/api/training', upload.single('file'), (req, res) => {
     const filePath = path.join(__dirname, 'uploads', req.file.filename); // 업로드된 파일 경로
 
     // Python 스크립트 실행
-    const pythonProcess = spawn('python', ['analyze_audio.py', filePath]);
+    const pythonProcess = exec(`python analyze_audio.py ${filePath}`);
 
     pythonProcess.stdout.on('data', (data) => {
         const results = JSON.parse(data.toString());
