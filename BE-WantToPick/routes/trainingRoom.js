@@ -36,7 +36,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
     console.log('File uploaded:', req.file); // 파일 업로드 로그 추가
 
     // Python 스크립트 실행
-    const pythonProcess = exec(`python3 analyze_audio.py ${req.file.filename}`, (error, stdout, stderr) => {
+    const pythonProcess = exec(`python3 ../analyze_audio.py ${req.file.filename}`, (error, stdout, stderr) => {
         if (error) {
             console.error(`Error executing script: ${error}`);
             return res.status(500).json({ error: 'Audio analysis failed' });
@@ -46,6 +46,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
         res.status(201).json(result); // 분석 결과 반환
     });
 });
+
 
 // ==================================================
 // MP3 파일 다운로드 API
