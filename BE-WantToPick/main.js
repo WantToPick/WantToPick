@@ -40,23 +40,6 @@ connectDB();
 // MP3 업로드를 위한 multer 설정
 const upload = multer({ dest: 'uploads/' }); // 파일 저장 위치
 
-// 음성 분석을 위한 API 라우트 추가
-app.post('/api/trainingRoom/upload', upload.single('audio'), (req, res) => {
-    const filePath = req.file.path;
-
-    // Python 스크립트 실행
-    exec(`python analyze_audio.py ${filePath}`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return res.status(500).send('Error during audio analysis');
-        }
-
-        // 분석 결과를 JSON 형태로 반환
-        const analysisResults = JSON.parse(stdout);
-        res.json(analysisResults);
-    });
-});
-
 // 라우터 설정
 app.use('/api/session', sessionRoutes); // 세션에 데이터 저장 라우터
 app.use('/api', signUpRoutes); // /sign_up 라우터
@@ -68,7 +51,7 @@ app.use('/api', profileRoutes);
 app.use('/api/video', videoRoutes); // /api/video 경로에 비디오 관련 라우터 추가
 
 // MP3 업로드 및 다운로드 라우터
-app.use('/api', musicRoutes); // /api/trainingRoom 경로에 MP3 관련 라우터 추가
+app.use('/api', musicRoutes); // /trainingRoom 경로에 MP3 관련 라우터 추가
 
 // 서버 시작
 app.listen(PORT, () => {

@@ -52,7 +52,6 @@ export default function VocalTrainingPage() {
                         <h3 className="font-bold text-3xl ml-3">노래 분석하기</h3>
                         <div
                             className="border rounded-3xl font-semibold ml-auto w-[60%] h-12 flex items-center justify-center"
-                            style={{ background: 'linear-gradient(to bottom, #CAD7FF, #FEE2E4)' }}
                         >
                             <span className="mr-2">💡</span> 키, 템포, 음역대, 포먼트를 바탕으로 나에게 맞는 노래를 추천받아보세요!
                         </div>
@@ -103,14 +102,14 @@ export default function VocalTrainingPage() {
                         )}
                     </div>
                     <button
-                        className="bg-blue-500 rounded-xl w-36 h-12 text-white mt-12 mx-auto flex justify-center items-center"
+                        className="bg-[#526DF8] rounded-2xl font-semibold w-36 h-12 text-white mt-12 mx-auto flex justify-center items-center"
                         onClick={handleSubmit} // 파일 제출 및 분석 실행
                     >
                         결과 확인하기
                     </button>
                 </div>
                 <div className="w-44 border-l mt-5 mr-5 border-gray-300 flex flex-col items-end">
-                    <button className="bg-blue-500 text-white rounded-xl w-40 h-12 mt-5">
+                    <button className="bg-[#526DF8] text-white font-semibold rounded-2xl w-40 h-10 mt-5">
                         새 트레이닝 +
                     </button>
                     <div className="flex items-center mt-7 mr-28 cursor-pointer" onClick={toggleRecent}>

@@ -1,49 +1,67 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const Grid = require('gridfs-stream');
 const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
-const { exec } = require('child_process'); // Python 스크립트 실행을 위한 모듈
+const { exec } = require('child_process'); // Python 스크립트 실행 모듈
+const mongoose = require('mongoose'); // 이미 DB 연결이 되어 있으므로 재사용 가능
 
-const mongoURI = process.env.MONGO_URI;  // 환경 변수에서 MongoDB URI 가져오기
-const conn = mongoose.createConnection(mongoURI);
-
-// GridFS 설정
+// GridFS 설정 (이미 연결된 Mongoose 인스턴스가 있다고 가정)
 let gfs;
-conn.once('open', () => {
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('trainingRoom');
+mongoose.connection.once('open', () => {
+    gfs = Grid(mongoose.connection.db, mongoose.mongo);
+    gfs.collection('musics');
 });
 
 // GridFS 스토리지 설정
 const storage = new GridFsStorage({
-    url: mongoURI,
+    url: process.env.MONGO_URI,
     file: (req, file) => {
         return {
-            filename: Date.now() + '-' + file.originalname, // 파일명 설정
-            bucketName: 'musics' // GridFS에서 저장될 버킷 이름
+            filename: Date.now() + '-' + file.originalname,
+            bucketName: 'musics' // 버킷 이름 설정
         };
     }
 });
 
 const upload = multer({ storage });
 
-// ==================================================
-// MP3 파일 업로드 API
-// ==================================================
-router.post('/upload', upload.single('file'), (req, res) => {
-    console.log('File uploaded:', req.file); // 파일 업로드 로그 추가
+// MP3 파일 업로드 APIconst fs = require('fs'); // 파일 시스템 모듈
+const path = require('path'); // 경로 모듈
 
-    // Python 스크립트 실행
-    const pythonProcess = exec(`python3 ../analyze_audio.py ${req.file.filename}`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error executing script: ${error}`);
-            return res.status(500).json({ error: 'Audio analysis failed' });
-        }
-        // Python 스크립트의 결과를 JSON으로 파싱
-        const result = JSON.parse(stdout);
-        res.status(201).json(result); // 분석 결과 반환
+router.post('/upload', upload.single('file'), (req, res) => {
+    console.log('File uploaded:', req.file);
+
+    // GridFS에서 파일 읽기
+    const readStream = gfs.createReadStream({ filename: req.file.filename });
+    const tempFilePath = path.join(__dirname, `../temp/${req.file.filename}`);  // 임시 파일 경로 설정
+
+    // 임시 파일에 쓰기
+    const writeStream = fs.createWriteStream(tempFilePath);
+
+    readStream.pipe(writeStream).on('finish', () => {
+        // Python 스크립트 실행
+        const pythonScriptPath = path.join(__dirname, '../analyze_audio.py');  // Python 스크립트 절대 경로
+        const pythonProcess = exec(`python3 ${pythonScriptPath} ${tempFilePath}`, (error, stdout, stderr) => {
+            // 임시 파일 삭제
+            fs.unlinkSync(tempFilePath);
+
+            if (error) {
+                console.error(`Error executing script: ${error}`);
+                return res.status(500).json({ error: 'Audio analysis failed' });
+            }
+
+            try {
+                const result = JSON.parse(stdout);
+                res.status(201).json(result); // 분석 결과 반환
+            } catch (parseError) {
+                console.error('Parsing error:', parseError);
+                res.status(500).json({ error: 'Parsing analysis result failed' });
+            }
+        });
+    }).on('error', (err) => {
+        console.error('Error writing file to disk:', err);
+        res.status(500).json({ error: 'File write failed' });
     });
 });
 
@@ -56,12 +74,12 @@ router.get('/download/music/:filename', (req, res) => {
         if (!file || file.length === 0) {
             return res.status(404).json({ message: 'No MP3 file found' });
         }
-        // MP3 파일 다운로드 스트림 생성
-        if (file.contentType === 'music/mpeg' || file.contentType === 'music/mp3') {
+
+        if (file.contentType === 'audio/mpeg' || file.contentType === 'audio/mp3') {
             const readStream = gfs.createReadStream(file.filename);
             readStream.pipe(res);
         } else {
-            return res.status(404).json({ message: 'Not an MP3 file' });
+            return res.status(400).json({ message: 'Not an MP3 file' });
         }
     });
 });
