@@ -71,15 +71,6 @@ def estimate_key(pitch_values):
     estimated_key = key_names[key_index]
     return estimated_key
 
-# 추천 노래 목록 생성
-def generate_recommendations(estimated_key):
-    recommendations = {
-        "C": ["Song A", "Song B", "Song C"],
-        "D": ["Song D", "Song E", "Song F"],
-        "E": ["Song G", "Song H", "Song I"],
-    }
-    return recommendations.get(estimated_key, [])
-
 # 유사도 계산 함수 (가중치 조정 가능)
 def calculate_similarity(row, key, tempo, energy, danceability):
     # key 유사도 (같으면 1, 다르면 0)
