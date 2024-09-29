@@ -68,7 +68,7 @@ app.use('/api', profileRoutes);
 app.use('/api/video', videoRoutes); // /api/video 경로에 비디오 관련 라우터 추가
 
 // MP3 업로드 및 다운로드 라우터
-app.use('/api/trainingRoom', musicRoutes); // /api/trainingRoom 경로에 MP3 관련 라우터 추가
+app.use('/api', musicRoutes); // /api/trainingRoom 경로에 MP3 관련 라우터 추가
 
 // 서버 시작
 app.listen(PORT, () => {

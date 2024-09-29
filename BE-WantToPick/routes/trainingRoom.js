@@ -1,10 +1,10 @@
-require('dotenv').config();
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Grid = require('gridfs-stream');
 const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
+const { exec } = require('child_process'); // Python 스크립트 실행을 위한 모듈
 
 const mongoURI = process.env.MONGO_URI;  // 환경 변수에서 MongoDB URI 가져오기
 const conn = mongoose.createConnection(mongoURI);
@@ -13,7 +13,7 @@ const conn = mongoose.createConnection(mongoURI);
 let gfs;
 conn.once('open', () => {
     gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
+    gfs.collection('trainingRoom');
 });
 
 // GridFS 스토리지 설정
@@ -32,9 +32,21 @@ const upload = multer({ storage });
 // ==================================================
 // MP3 파일 업로드 API
 // ==================================================
-router.post('/upload/music', upload.single('file'), (req, res) => {
-    res.status(201).json({ file: req.file });
+router.post('/upload', upload.single('file'), (req, res) => {
+    console.log('File uploaded:', req.file); // 파일 업로드 로그 추가
+
+    // Python 스크립트 실행
+    const pythonProcess = exec(`python3 ../analyze_audio.py ${req.file.filename}`, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error executing script: ${error}`);
+            return res.status(500).json({ error: 'Audio analysis failed' });
+        }
+        // Python 스크립트의 결과를 JSON으로 파싱
+        const result = JSON.parse(stdout);
+        res.status(201).json(result); // 분석 결과 반환
+    });
 });
+
 
 // ==================================================
 // MP3 파일 다운로드 API
