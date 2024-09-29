@@ -68,5 +68,40 @@ router.put('/profile', async (req, res) => {
     }
 });
 
+router.post('/profile', async (req, res) => {
+  try {
+    // 클라이언트에서 전달된 데이터
+    const { username, position, keywords } = req.body;
+
+    // 세션에서 저장된 데이터 가져오기
+    const { name, birthdate, email } = req.session;
+
+    // 세션에 필요한 데이터가 없는 경우
+    if (!name || !birthdate || !email) {
+      return res.status(400).json({ message: '세션에 필요한 데이터가 없습니다.' });
+    }
+
+    // 프로필 데이터 생성
+    const profileData = {
+      username,
+      name,
+      birthdate,
+      email,
+      position, // 클라이언트에서 추가된 포지션 정보
+      keywords // 클라이언트에서 전달된 키워드 정보
+    };
+
+    // 프로필을 DB에 저장
+    const newProfile = new Profile(profileData);
+    await newProfile.save();
+
+    // 성공 메시지 반환
+    res.status(201).json({ message: '프로필이 성공적으로 저장되었습니다.', profile: newProfile });
+  } catch (error) {
+    console.error('프로필 저장 중 오류:', error);
+    res.status(500).json({ message: '프로필 저장 중 오류가 발생했습니다.', error });
+  }
+});
+
 
 module.exports = router;

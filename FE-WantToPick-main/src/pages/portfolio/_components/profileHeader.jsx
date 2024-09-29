@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getProfile, updateProfile } from '../api';  // API 함수 가져오기
 
-
 export default function ProfileHeader({ username }) {
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState(null); // DB에서 가져온 프로필 데이터
@@ -58,11 +57,16 @@ export default function ProfileHeader({ username }) {
     }
   };
 
-  // profileData는 항상 있다고 가정하므로 null 체크 필요 없음
+  // profileData가 없으면 로딩 상태 표시
+  if (!profileData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 px-10 py-4 text-black flex justify-between items-start">
       <div className="flex items-center w-9/12">
-        <div className="w-40 h-52 bg-gray-300 rounded-lg" />
+        {/* 이미지 박스의 크기를 고정된 크기로 설정 */}
+        <div className="w-40 h-52 bg-gray-300 rounded-lg flex-shrink-0" />
         <div className="ml-8">
           <div className="flex mb-2">
             <p className="text-lg font-bold w-24">이름</p>
