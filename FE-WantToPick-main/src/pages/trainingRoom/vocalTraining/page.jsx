@@ -4,15 +4,36 @@ import file_upload from '../../../assets/images/trainingroom/file_upload.png';
 export default function VocalTrainingPage() {
     const fileInputRef = useRef(null);
     const [showRecent, setShowRecent] = useState(false);
-    const [file, setFile] = useState(null); // 추가: 업로드한 파일 상태
-    const [showResults, setShowResults] = useState(false); // 추가: 결과 표시 상태
+    const [file, setFile] = useState(null); // 업로드한 파일 상태
+    const [showResults, setShowResults] = useState(false); // 결과 표시 상태
+    const [analysisResults, setAnalysisResults] = useState(null); // 분석 결과 상태
 
-    const handleFileUpload = (e) => {
+    const handleFileUpload = async (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
-            setFile(selectedFile); // 업로드한 파일을 상태에 저장
-            console.log("파일이 업로드되었습니다: ", selectedFile.name);
-            alert("업로드 성공!");
+            setFile(selectedFile); // 파일 상태 업데이트
+            const formData = new FormData();
+            formData.append('file', selectedFile); // 'audio' -> 'file'
+
+            try {
+                const response = await fetch('http://localhost:3001/api/trainingRoom/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const results = await response.json();
+                    setAnalysisResults(results); // 분석 결과 저장
+                    setShowResults(true); // 결과 표시 상태로 변경
+                    console.log("분석 결과: ", results);
+                    alert("업로드 성공!");
+                } else {
+                    alert("분석 중 오류가 발생했습니다.");
+                }
+            } catch (error) {
+                console.error("Error uploading file:", error);
+                alert("파일 업로드 중 오류가 발생했습니다.");
+            }
         }
     };
 
@@ -50,15 +71,15 @@ export default function VocalTrainingPage() {
                         </div>
                     </div>
                     <div className="border-2 border-dashed border-gray-400 rounded-xl mt-6 p-6 h-96 flex flex-col items-center justify-center">
-                        {showResults ? ( // 결과 표시 상태에 따라 조건부 렌더링
+                        {showResults && analysisResults ? ( // 결과 표시 상태에 따라 조건부 렌더링
                             <div className="text-center">
                                 <h4 className="font-bold text-2xl ">노래 분석 결과</h4>
-                                <div className="mt-10 w-96 h-40 border-2 border-gray-300  rounded-3xl">
+                                <div className="mt-10 w-96 h-40 border-2 border-gray-300 rounded-3xl">
                                     <p className="mt-5 ml-5 text-left font-semibold">선우님께 맞는 노래는,</p>
                                     <ul className="mt-2 text-left ml-5">
-                                        <li>🎵 태연 - 사계</li>
-                                        <li>🎵 소녀시대 - 다시 만난 세계</li>
-                                        <li>🎵 헤이즈 - 더 많이 사랑한 쪽이 아프대</li>
+                                        {analysisResults.recommendations.map((song, index) => (
+                                            <li key={index}>🎵 {song}</li>
+                                        ))}
                                     </ul>
                                 </div>
                             </div>

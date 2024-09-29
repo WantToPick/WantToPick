@@ -1,4 +1,5 @@
 const express = require('express');
+<<<<<<< HEAD
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cors = require('cors');
@@ -14,60 +15,67 @@ const loginRoutes = require('./routes/login'); // 새로운 로그인 경로
 const selfIntroductionRoutes = require('./routes/selfIntroduction');
 const videoRoutes = require('./routes/video'); // 비디오 업로드/다운로드 라우터 추가
 const musicRoutes = require('./routes/trainingRoom'); // 노래 업로드/다운로드 라우터 추가
+=======
+const mongoose = require('mongoose');
+const cors = require('cors'); // CORS 패키지 추가
+const multer = require('multer'); // Multer 패키지 추가
+const { spawn } = require('child_process'); // child_process 패키지 추가
+const path = require('path'); // 경로 설정을 위한 패키지 추가
+require('dotenv').config(); // 환경 변수 설정
+
+// MongoDB URI
+const mongoURI = process.env.MONGO_URI; // 환경 변수에서 MongoDB URI 가져오기
+>>>>>>> d15092a749cd6d245cff010796524c8ffa6e2a9c
 
 const app = express();
 
 // CORS 설정
-const corsOptions = {
-    origin: 'http://localhost:3000', // 프론트엔드의 URL
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-};
-
-// 미들웨어 설정
-app.use(cors(corsOptions)); // CORS 설정 적용
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(session(sessionConfig));
+app.use(cors()); // 모든 도메인에서의 요청 허용
+app.use(express.json()); // JSON 요청 바디를 파싱
 
 // MongoDB 연결
+mongoose.connect(mongoURI)
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.log(err));
+
+<<<<<<< HEAD
+// MongoDB 연결
 connectDB(); // MongoDB 연결 함수 호출
+=======
+// Multer 설정
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'); // 파일을 저장할 경로
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); // 원래 파일 이름 유지
+    },
+});
+const upload = multer({ storage });
+>>>>>>> d15092a749cd6d245cff010796524c8ffa6e2a9c
 
-// MP3 업로드를 위한 multer 설정
-const upload = multer({ dest: 'uploads/' }); // 파일 저장 위치
-
-// 음성 분석을 위한 API 라우트 추가
-app.post('/api/trainingRoom/upload', upload.single('audio'), (req, res) => {
-    const filePath = req.file.path;
+// /api/training 엔드포인트
+app.post('/api/training', upload.single('file'), (req, res) => {
+    const filePath = path.join(__dirname, 'uploads', req.file.filename); // 업로드된 파일 경로
 
     // Python 스크립트 실행
-    exec(`python analyze_audio.py ${filePath}`, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return res.status(500).send('Error during audio analysis');
-        }
+    const pythonProcess = spawn('python', ['analyze_audio.py', filePath]);
 
-        // 분석 결과를 JSON 형태로 반환
-        const analysisResults = JSON.parse(stdout);
-        res.json(analysisResults);
+    pythonProcess.stdout.on('data', (data) => {
+        const results = JSON.parse(data.toString());
+        res.json(results); // 분석 결과를 클라이언트에 전송
+    });
+
+    pythonProcess.stderr.on('data', (data) => {
+        console.error(`Python Error: ${data}`);
+        res.status(500).send('Error analyzing the audio file');
     });
 });
 
-// 라우터 설정
-app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/session', sessionRoutes); // 세션에 데이터 저장 라우터
-app.use('/api', signUpRoutes); // /sign_up 라우터
-app.use('/api', loginRoutes);  // /api/login 라우트를 추가
-app.use('/api', selfIntroductionRoutes);
-
-// 비디오 업로드 및 다운로드 라우터
-app.use('/api/video', videoRoutes); // /api/video 경로에 비디오 관련 라우터 추가
-
-// MP3 업로드 및 다운로드 라우터
-app.use('/api/trainingRoom', musicRoutes); // /api/trainingRoom 경로에 MP3 관련 라우터 추가
+// 라우터 등록
+const trainingRoomRoutes = require('./routes/trainingRoom');
+app.use('/api/trainingRoom', trainingRoomRoutes); // 라우터 등록
 
 // 서버 시작
-app.listen(3001, () => {
-    console.log('서버가 포트 3001에서 시작되었습니다');
-});
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
