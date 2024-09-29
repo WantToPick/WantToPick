@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link, useOutletContext  } from 'react-router-dom';
 import { usePortfolio } from '../_hooks/usePortfolio';
+import img4 from '../../../assets/images/portfolio/yesorno.png'
+import img5 from '../../../assets/images/portfolio/balloon.png'
+import img6 from '../../../assets/images/portfolio/12clock.png'
+
 
 export default function DancePortfolioPage() {
   const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
 
   const initialData = [
-    { id: 1, title: '댄스 영상 1', description: '댄스 영상 설명', thumbnail: 'path/to/thumbnail1.jpg' },
-    { id: 2, title: '댄스 영상 2', description: '댄스 영상 설명', thumbnail: 'path/to/thumbnail2.jpg' },
-    { id: 3, title: '댄스 영상 3', description: '댄스 영상 설명', thumbnail: 'path/to/thumbnail3.jpg' },
+    { id: 1, title: '수지 | Yes or No', description: '댄스 영상', thumbnail: img4 },
+    { id: 2, title: '선미 | Balloon in love', description: '댄스 영상', thumbnail: img5 },
+    { id: 3, title: '청하 | 벌써 12시', description: '댄스 영상', thumbnail: img6 },
     // 더 많은 데이터...
   ];
 

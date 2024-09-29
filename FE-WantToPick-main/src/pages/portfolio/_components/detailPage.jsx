@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useOutletContext } from 'react-router-dom';
+import vdo1 from '../../../assets/images/portfolio/lovewinsall.mp4'
 
 export default function DetailPage() {
   const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
@@ -30,7 +31,7 @@ export default function DetailPage() {
             id: 1, 
             title: '아이유 | Love wins all', 
             description: '제가 좋아하는 노래입니다! 열심히 불러보았습니다 :)',
-            videoUrl: 'FE-WantToPick-main/src/assets/images/portfolio/lovewinsall.mp4',
+            videoUrl: vdo1,
             views: 150,
             date: '2024.08.05',
           },

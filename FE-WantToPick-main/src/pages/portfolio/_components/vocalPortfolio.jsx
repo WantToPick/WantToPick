@@ -1,14 +1,17 @@
 import React from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { usePortfolio } from '../_hooks/usePortfolio';
+import img1 from '../../../assets/images/portfolio/lovewinsall.png'
+import img2 from '../../../assets/images/portfolio/universe.png'
+import img3 from '../../../assets/images/portfolio/world.png'
 
 export default function VocalPortfolioPage() {
   const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
 
   const initialData = [
-    { id: 1, title: '아이유 | Love wins all', description: '보컬 영상', thumbnail: 'FE-WantToPick-main/src/assets/images/portfolio/lovewinsall.png' },
-    { id: 2, title: '백예린 | 우주를 줄게', description: '보컬 영상', thumbnail: 'FE-WantToPick-main/src/assets/images/portfolio/universe.png' },
-    { id: 3, title: '소녀시대 | 다시 만난 세계', description: '보컬 영상', thumbnail: 'FE-WantToPick-main/src/assets/images/portfolio/world.png' },
+    { id: 1, title: '아이유 | Love wins all', description: '보컬 영상', thumbnail: img1 },
+    { id: 2, title: '백예린 | 우주를 줄게', description: '보컬 영상', thumbnail: img2 },
+    { id: 3, title: '소녀시대 | 다시 만난 세계', description: '보컬 영상', thumbnail: img3 },
     // 더 많은 데이터...
   ];
 

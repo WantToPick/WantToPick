@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import { usePortfolio } from '../_hooks/usePortfolio';
+import img7 from '../../../assets/images/portfolio/vs1.png'
+import img8 from '../../../assets/images/portfolio/vs2.png'
+import img9 from '../../../assets/images/portfolio/vs3.png'
+
 
 export default function ImagePortfolioPage() {
   const { username } = useOutletContext();  // Outlet에서 전달된 context 받아오기
 
   const initialData = [
-    { id: 1, title: '이미지 1', description: '이미지 설명', thumbnail: 'path/to/thumbnail1.jpg' },
-    { id: 2, title: '이미지 2', description: '이미지 설명', thumbnail: 'path/to/thumbnail2.jpg' },
-    { id: 3, title: '이미지 3', description: '이미지 설명', thumbnail: 'path/to/thumbnail3.jpg' },
+    { id: 1, title: '2024 개인 프로필 촬영', description: '비주얼 사진', thumbnail: img7 },
+    { id: 2, title: '2023 개인 프로필 촬영', description: '비주얼 사진', thumbnail: img8 },
+    { id: 3, title: '2023 흑백 프로필 촬영', description: '비주얼 사진', thumbnail: img9 },
     // 더 많은 데이터...
   ];
 
