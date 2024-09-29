@@ -114,4 +114,26 @@ export const addPortfolioInfo = async (username) => {
     console.error('포트폴리오 정보 저장 오류:', error.response ? error.response.data : error.message);
     throw error;
   }
+
+};
+
+// 포트폴리오의 프로필/자기소개서 튜플 추가하는 함수 (/profile으로 전송)
+export const addProfile = async (username) => {
+  try {
+    // 클라이언트에서 username, position, keywords만 전송
+    const profileData = {
+      username: username,  // 사용자명 (클라이언트에서 받은 값)
+      position: ' ',  // 클라이언트에서 추가된 포지션 정보
+      keywords: { kw1: ' ', kw2: ' ', kw3: ' ' }  // 클라이언트에서 받은 키워드 정보
+    };
+
+    // 프로필 데이터를 서버로 전송
+    const response = await axios.post(`${API_BASE_URL}/profile`, profileData, { withCredentials: true });
+    console.log('프로필 정보 저장 성공:', response.data);
+    return response.data;
+
+  } catch (error) {
+    console.error('프로필 정보 저장 오류:', error.response ? error.response.data : error.message);
+    throw error;
+  }
 };

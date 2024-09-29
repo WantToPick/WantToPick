@@ -16,6 +16,7 @@ const sessionRoutes = require('./routes/session'); // 세션에 데이터 저장
 const signUpRoutes = require('./routes/signUp'); // /signin 라우터
 const loginRoutes = require('./routes/login'); // 새로운 로그인 경로
 const selfIntroductionRoutes = require('./routes/selfIntroduction');
+const profileRoutes = require('./routes/selfProfile');
 const videoRoutes = require('./routes/video'); // 비디오 업로드/다운로드 라우터 추가
 const musicRoutes = require('./routes/trainingRoom'); // 노래 업로드/다운로드 라우터 추가
 
@@ -48,11 +49,23 @@ app.post('/api/training', upload.single('file'), (req, res) => {
         res.json(results); // 분석 결과를 클라이언트에 전송
     });
 
+
+// 라우터 설정
+app.use('/api/session', sessionRoutes); // 세션에 데이터 저장 라우터
+app.use('/api', signUpRoutes); // /sign_up 라우터
+app.use('/api', loginRoutes);  // /api/login 라우트를 추가
+app.use('/api', selfIntroductionRoutes);
+app.use('/api', profileRoutes);
+
+// 비디오 업로드 및 다운로드 라우터
+app.use('/api/video', videoRoutes); // /api/video 경로에 비디오 관련 라우터 추가
+
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Python Error: ${data}`);
         res.status(500).send('Error analyzing the audio file');
     });
 });
+
 
 // 라우터 등록
 const trainingRoomRoutes = require('./routes/trainingRoom');
