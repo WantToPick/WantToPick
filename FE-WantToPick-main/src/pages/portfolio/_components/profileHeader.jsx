@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getProfile, updateProfile } from '../api';  // API 함수 가져오기
+import img10 from '../../../assets/images/portfolio/pro1.png';  // 이미지 가져오기
+
 
 export default function ProfileHeader({ username }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -66,7 +68,21 @@ export default function ProfileHeader({ username }) {
     <div className="bg-gradient-to-r from-[#FFEAEB]/50 to-[#CEDAFF]/50 px-10 py-4 text-black flex justify-between items-start">
       <div className="flex items-center w-9/12">
         {/* 이미지 박스의 크기를 고정된 크기로 설정 */}
-        <div className="w-40 h-52 bg-gray-300 rounded-lg flex-shrink-0" />
+        <div className="w-40 h-52 bg-gray-300 rounded-lg flex-shrink-0">
+          {profileData?.imageUrl ? (
+            <img
+              src={profileData.imageUrl}  // 서버에서 가져온 이미지가 있을 때 사용
+              alt="Profile"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          ) : (
+            <img
+              src={img10}  // 기본 이미지로 vs3.png 설정
+              alt="Default Profile"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          )}
+        </div>
         <div className="ml-8">
           <div className="flex mb-2">
             <p className="text-lg font-bold w-24">이름</p>
